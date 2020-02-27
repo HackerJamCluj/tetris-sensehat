@@ -255,13 +255,13 @@ if __name__ == "__main__":
         
         # Check if joystick is pressed/held
         direction = joystick_handler()
-        if ((hat.orientation["pitch"] >= SHIFT_ANGLE and hat.orientation["pitch"] <= 180.0) or direction == "left") and valid_shift(-1, tile_points):
+        if direction == "left" and valid_shift(-1, tile_points):
             left_timer += time.time() - curr_left_time
             curr_left_time = time.time()
             if left_timer > SHIFT_DELAY:
                 left_timer = 0.0
                 dx = -1
-        elif ((hat.orientation["pitch"] <= 360.0 - SHIFT_ANGLE and hat.orientation["pitch"] > 180.0) or direction == "right") and valid_shift(1, tile_points):
+        elif direction == "right" and valid_shift(1, tile_points):
             right_timer += time.time() - curr_right_time
             curr_right_time = time.time()
             if right_timer > SHIFT_DELAY:
@@ -274,7 +274,7 @@ if __name__ == "__main__":
                 rotate_timer = 0.0
                 dy = 0
                 tile_points = rotate_piece(tile_points)
-        elif ((hat.orientation["roll"] > DOWN_ANGLE and hat.orientation["roll"] < 180.0) or direction == "down") and (not landed):
+        elif direction == "down" and (not landed):
             dy = 1
         #elif direction == "middle":
         #    pause()
